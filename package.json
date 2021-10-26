@@ -1,0 +1,35 @@
+{
+  "name": "skydropxnodejs",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon --config nodemon.json",
+    "test": "jest",
+    "lint": "eslint --ignore-path .gitignore --fix .",
+    "format": "prettier --ignore-path .gitignore --write .",
+    "test:load": "artillery run ./tests/load/load-test.yml"
+  },
+  "author": "Debra Chacaliaza<debra.chacaliaza@gmail.com>",
+  "devDependencies": {
+    "artillery": "^1.7.9",
+    "axios-mock-adapter": "^1.20.0",
+    "eslint": "7.32.0",
+    "eslint-config-airbnb-base": "14.2.1",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-import": "2.25.2",
+    "eslint-plugin-jest": "25.2.2",
+    "eslint-plugin-sonarjs": "0.10.0",
+    "jest": "27.3.1",
+    "mongodb-memory-server-global-4.4": "7.5.1",
+    "nodemon": "2.0.14",
+    "prettier": "2.4.1",
+    "supertest": "^6.1.6"
+  },
+  "dependencies": {
+    "axios": "^0.23.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.12"
+  }
+}

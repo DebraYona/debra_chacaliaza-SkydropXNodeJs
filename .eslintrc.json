@@ -1,0 +1,39 @@
+{
+  "root": true,
+  "env": {
+    "node": true
+  },
+  "plugins": ["sonarjs"],
+  "extends": ["airbnb-base", "plugin:sonarjs/recommended", "prettier"],
+  "rules": {
+    "class-methods-use-this": "off",
+    "no-unused-vars": "off",
+    "max-classes-per-file": "off",
+    "camelcase": "off",
+    "no-underscore-dangle": "off"
+  },
+  "overrides": [
+    {
+      "files": ["tests/**/*.js"],
+      "env": {
+        "node": true,
+        "jest": true
+      },
+      "plugins": ["sonarjs", "jest"],
+      "extends": [
+        "airbnb-base",
+        "plugin:sonarjs/recommended",
+        "plugin:jest/all",
+        "prettier"
+      ],
+      "rules": {
+        "jest/prefer-lowercase-title": "off"
+      },
+      "settings": {
+        "jest": {
+          "version": 27
+        }
+      }
+    }
+  ]
+}
