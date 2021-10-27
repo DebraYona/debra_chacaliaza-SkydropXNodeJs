@@ -1,0 +1,13 @@
+config:
+  target: 'http://localhost:7000/api/users'
+  http:
+    pool: 10
+    timeout: 5
+  phases:
+    - duration: 20
+      arrivalCount: 30
+
+scenarios:
+  - flow:
+      - get:
+          url: '/1,2,3'
