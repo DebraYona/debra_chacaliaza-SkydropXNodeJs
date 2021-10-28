@@ -18,6 +18,10 @@ describe('users validators', () => {
       expect.assertions(1);
       expect(isValidId('a')).toBe(false);
     });
+    it('should return true if id = "1"', () => {
+      expect.assertions(1);
+      expect(isValidId('1')).toBe(true);
+    });
   });
 
   describe('email validator', () => {
@@ -25,12 +29,21 @@ describe('users validators', () => {
       expect.assertions(1);
       expect(isValidEmail('a@a')).toBe(false);
     });
+    it("should return true for 'test@test.com'", () => {
+      expect.assertions(1);
+      expect(isValidEmail('test@test.com')).toBe(true);
+    });
   });
 
   describe('url validator', () => {
-    it("should return false for 'httttp://eri.to'", () => {
+    it("should return false for '.to'", () => {
       expect.assertions(1);
-      expect(isValidUrl('httttp://eri.to')).toBe(false);
+      expect(isValidUrl('.to')).toBe(false);
+    });
+    it("should return true for 'https://www.test.com'", () => {
+      expect.assertions(2);
+      expect(isValidUrl('https://www.test.com')).toBe(true);
+      expect(isValidUrl('https://www.test.com')).toBe(true);
     });
   });
 });

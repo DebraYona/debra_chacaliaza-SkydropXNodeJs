@@ -1,27 +1,21 @@
 module.exports = class UserRepositoryMock {
   constructor() {
-    this.map = {};
+    this.map = new Map();
   }
 
-  create(user) {
-    if (this.map[user.id]) throw new Error('User already exists');
-
-    this.map[user.id] = user;
+  async save(user) {
+    this.map.set(Number(user.id), user);
+    return user;
   }
 
-  update(user) {
-    if (!this.map[user.id]) throw new Error('User doesnt exist');
+  async delete(user) {
+    if (!this.map.get(Number(user.id))) return null;
 
-    this.map[user.id] = user;
+    this.map.delete(Number(user.id));
+    return undefined;
   }
 
-  delete(id) {
-    if (!this.map[id]) throw new Error('User doesnt exist');
-
-    delete this.map[id];
-  }
-
-  get(ids) {
-    return ids.map((id) => this.map[id]);
+  async get(ids) {
+    return ids.map((id) => this.map.get(Number(id)) || null);
   }
 };

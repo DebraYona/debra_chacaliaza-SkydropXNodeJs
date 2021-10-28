@@ -1,14 +1,7 @@
+const User = require('../../src/users/entities/users.entity');
 const UsersService = require('../../src/users/services/users.service');
+const { getFakeUserData } = require('../fixtures/user.fixture');
 const UserRepositoryMock = require('../mocks/user.repository.mock');
-
-const getFakeUser = () => ({
-  name: 'test',
-  first_name: 'test',
-  last_name: 'test',
-  company: 'test',
-  url: 'test',
-  text: 'test',
-});
 
 describe('users service', () => {
   describe('create method', () => {
@@ -20,12 +13,14 @@ describe('users service', () => {
         externalUserRepository: userRepository,
       });
 
-      const data = getFakeUser();
+      const data = getFakeUserData();
 
       const user = await userService.createUser(1, data);
 
-      expect(userRepository.map[1]).toStrictEqual({ id: 1, ...data });
-      expect(user).toStrictEqual({ id: 1, ...data });
+      const fakeUser = new User({ id: 1, ...data });
+
+      expect(userRepository.map.get(1)).toStrictEqual(fakeUser);
+      expect(user).toStrictEqual(fakeUser);
     });
   });
 
@@ -38,18 +33,19 @@ describe('users service', () => {
         externalUserRepository: userRepository,
       });
 
-      const data = getFakeUser();
+      const data = getFakeUserData();
 
-      userRepository.map[1] = { id: 1, ...data };
+      userRepository.map.set(1, new User({ id: 1, ...data }));
 
-      const user = await userService.updateUser(1, { ...data, name: 'test2' });
-
-      expect(userRepository.map[1]).toStrictEqual({
-        id: 1,
+      const user = await userService.updateUser(1, {
         ...data,
-        name: 'test2',
+        company: 'test2',
       });
-      expect(user).toStrictEqual({ id: 1, ...data, name: 'test2' });
+
+      const fakeUser = new User({ id: 1, ...data, company: 'test2' });
+
+      expect(userRepository.map.get(1)).toStrictEqual(fakeUser);
+      expect(user).toStrictEqual(fakeUser);
     });
   });
 
@@ -62,13 +58,13 @@ describe('users service', () => {
         externalUserRepository: userRepository,
       });
 
-      const data = getFakeUser();
+      const data = getFakeUserData();
 
-      userRepository.map[1] = { id: 1, ...data };
+      userRepository.map.set(1, new User({ id: 1, ...data }));
 
       await userService.deleteUser(1);
 
-      expect(userRepository.map).toStrictEqual({});
+      expect(userRepository.map.size).toBe(0);
     });
   });
 
@@ -81,12 +77,12 @@ describe('users service', () => {
         externalUserRepository: userRepository,
       });
 
-      const data = getFakeUser();
+      const data = getFakeUserData();
 
-      userRepository.map[1] = { id: 1, ...data };
-      userRepository.map[2] = { id: 1, ...data };
+      userRepository.map.set(1, new User({ id: 1, ...data }));
+      userRepository.map.set(2, new User({ id: 2, ...data }));
 
-      const users = await userService.getUsers('1', '2', '3');
+      const users = await userService.getUsers(['1', '2', '3']);
 
       expect(users).toHaveLength(2);
     });

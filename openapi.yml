@@ -1,0 +1,144 @@
+  swagger: "2.0"
+  info:
+    description: API Endpoinds Challenge SkyDrop
+    title: API Challenge
+    version: '1.0'
+  schemes:
+    - https
+  produces:
+    - application/json
+  host: "localhost:7000"
+  paths:
+    '/api/users':
+      get:
+        description: 'get user by Id'
+        summary: User
+        operationId: getUserById
+        parameters:
+          - in: path
+            name: id
+            type: number
+            required: true
+            description: id of user .
+        security:
+        - jwt: []
+        responses:
+          '200':
+            $ref: "#/responses/userResponse"
+      post:
+        description: 'create user'
+        summary: User
+        operationId: postUserBy
+        parameters:
+          - in: path
+            name: id
+            type: number
+            required: true
+            description: id of user .
+          - in: body
+            name: user
+            description: information of  user
+            schema:
+              type: object
+              required:
+                - user
+              properties:
+                id:  
+                  type: number
+                  example: 1
+                  description: 'id of user'
+                email:  
+                  type: string
+                  example: 'debra@gmail.com'
+                  description: 'email for user'
+                first_name:  
+                  type: string
+                  example: 'debra'
+                  description: 'first namr by user'
+                last_name:  
+                  type: string
+                  example: 'chacaliaza'
+                  description: 'last name by user'
+                company:  
+                  type: string
+                  example: 'skydrop'
+                  description: 'company by user'
+                url:  
+                  type: string
+                  example: 'https://dev-challenges.skydropx.com/nodejs-engineer/challenge'
+                  description: 'url by user'
+                text:  
+                  type: string
+                  example: 'ttps://dev-challenges.skydropx.com/nodejs-engineer/challenge'
+                  description: 'user text'               
+        responses:
+          '200':
+            $ref: "#/responses/userResponse"
+      delete:
+        description: 'get user by Id'
+        summary: User
+        operationId: getUserById
+        parameters:
+          - in: path
+            name: id
+            type: number
+            required: true
+            description: id of user .
+        security:
+        - jwt: []
+        responses:
+          '200':
+            $ref: "#/responses/userResponse"
+      put:
+        description: 'update user by Id'
+        summary: User
+        operationId: getUserById
+        parameters:
+          - in: path
+            name: id
+            type: number
+            required: true
+            description: id of user .
+        security:
+        - jwt: []
+        responses:
+          '200':
+            $ref: "#/responses/userResponse"
+      
+  responses:
+    userResponse:
+      description: "Respuesta de cursos"
+      schema:
+        $ref: "#/definitions/user" 
+  definitions:
+    user:
+      type: object
+      properties:
+        id:  
+          type: number
+          example: 1
+          description: 'id of user'
+        email:  
+          type: string
+          example: 'debra@gmail.com'
+          description: 'email for user'
+        first_name:  
+          type: string
+          example: 'debra'
+          description: 'first namr by user'
+        last_name:  
+          type: string
+          example: 'chacaliaza'
+          description: 'last name by user'
+        company:  
+          type: string
+          example: 'skydrop'
+          description: 'company by user'
+        url:  
+          type: string
+          example: 'https://dev-challenges.skydropx.com/nodejs-engineer/challenge'
+          description: 'url by user'
+        text:  
+          type: string
+          example: 'ttps://dev-challenges.skydropx.com/nodejs-engineer/challenge'
+          description: 'user text'
